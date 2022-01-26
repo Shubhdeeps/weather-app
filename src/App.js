@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { useRef } from 'react';
+import './stylesheet/App.css';
+import data from './data/cities.json'
+import day from './assets/day.jpg'
+import Body from './components/Body';
+import Layout from './components/Layout';
 
 function App() {
+  
+
+
+
+  const ref = useRef(null)
+
+  const handleChange = () => {
+    const val = ref.current.value.toLowerCase()
+    let arr = []
+    data.some(x => {
+      if(x.name.toLowerCase().charAt(0) == (val.charAt(0))){
+        if(x.name.toLowerCase().match(val)){
+          arr.push(x)
+        }
+      }
+
+      if(arr.length === 5){
+        return true
+      }
+    })
+  }
+
+ 
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Layout>
+       <Body />
+      </Layout>
     </div>
   );
 }
